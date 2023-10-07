@@ -47,7 +47,12 @@ module.exports = (sequelize) => {
           msg: 'Please provide a value on or after "1895-12-28" for "releaseDate"',
         }
       },
-    }
+    },
+    isAvailableOnVHS: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   }, 
   // Model Options Object
   { 

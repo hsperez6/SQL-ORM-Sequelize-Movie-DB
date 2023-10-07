@@ -12,7 +12,6 @@ const { Movie, Person } = db.models;
       releaseDate: "1995-11-22",
       isAvailableOnVHS: true,
     });
-    console.log(movie.toJSON());
 
     const movie2 = await Movie.create({
       title: "The Incredibles",
@@ -20,16 +19,12 @@ const { Movie, Person } = db.models;
       releaseDate: "2004-04-14",
       isAvailableOnVHS: true,
     });
-    console.log(movie2.toJSON());
 
     const person = await Person.create({
       firstName: "Tom",
       lastName: "Hanks",
     });
-    console.log(person.toJSON());
     
-
-    // New Instance
     const movie3 = await Movie.build({
       title: "Toy Story 3",
       runtime: 103,
@@ -37,8 +32,20 @@ const { Movie, Person } = db.models;
       isAvailableOnVHS: false,
     });
     await movie3.save();
-    console.log(movie3.toJSON());
 
+    const movieById = await Movie.findByPk(3);
+    // console.log(movieById.toJSON());
+
+    const movieByRuntime = await Movie.findOne({ where: { runtime: 115, isAvailableOnVHS: true } });
+    // console.log(movieByRuntime.toJSON());
+
+    const movies = await Movie.findAll({
+      attributes: ['id', 'title'],
+      where: {
+        isAvailableOnVHS: true
+      }
+    }); 
+    console.log( movies.map(movie => movie.toJSON()) );
 
 
   } catch (error) {
